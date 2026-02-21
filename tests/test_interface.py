@@ -1,4 +1,4 @@
-from aidemoi.lib.interface import Interface
+from affogato.lib.interface import Interface
 
 
 def test_client_parse():

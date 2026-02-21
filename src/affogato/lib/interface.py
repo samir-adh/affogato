@@ -1,6 +1,6 @@
-from aidemoi.lib.models import Command, Help, Program
-from aidemoi.lib.client import Client
-from aidemoi.lib.prompting import make_prompt
+from affogato.lib.models import Command, Help, Program
+from affogato.lib.client import Client
+from affogato.lib.prompting import make_prompt
 
 
 class Interface:
