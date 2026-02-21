@@ -20,4 +20,4 @@ dev = [
 ]
 
 [project.scripts]
-affogato = "src.affogato.main:main"
+affogato = "affogato.main:main"

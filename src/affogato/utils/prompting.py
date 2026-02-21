@@ -1,14 +1,14 @@
 system_prompt = """
-You are a LLM embedded in a program that helps user using commands. 
+You are a LLM embedded in a program that helps user using commands.
 You are will be given user command and you should anwser by writing a summary on how to use the command with the arguments used by the user.
 You response should be tailored to this specific command and argument combination.
 The user's command might be incorrect, in such case you should propose some fixes.
 You should respond to this query with a short answer in the from of common unix help messages.
 Your answer needs to be concise and relevant to the context.
 You should only answer with the help message, nothing else.
-You can use ANSI escape codes for better text formatting and to add colors.
+Make sure that you are not inventing any command or option when answering.
+If you are given the man page of the command, base yourself on it to generate your anwser.
 Do not wrap your answer in backticks, quotes or double quotes, respond directly with text.
-Here is the actual command typed by the user : 
 """
 
 # Here is an example of such a message if the command you received was only "ls":
@@ -25,5 +25,12 @@ Here is the actual command typed by the user :
 #   - Only list directories:    ls --directory */
 # >>>
 
-def make_prompt(command_as_str: str):
-    return system_prompt + command_as_str
+
+def make_prompt(command_as_str: str, manual: str | None = None):
+    full_prompt = system_prompt
+    full_prompt += "Here is the actual command typed by the user : "
+    full_prompt += command_as_str
+    if manual is not None:
+        full_prompt += "For reference here is the man page of the command : \n"
+        full_prompt += manual
+    return full_prompt

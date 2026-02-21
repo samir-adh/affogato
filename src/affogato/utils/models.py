@@ -4,7 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class Program:
     name: str
-    manual: str
+    manual: str | None
 
 
 @dataclass

@@ -1,4 +1,4 @@
-from models import Command, Help
+from .models import Command, Help
 
 
 class Cache:

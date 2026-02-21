@@ -1,6 +1,6 @@
 import sys
-from lib.interface import Interface
-from lib.client import ClaudeClient
+from affogato.utils.interface import Interface
+from affogato.utils.client import ClaudeClient
 
 
 def main():

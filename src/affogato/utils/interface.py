@@ -1,6 +1,8 @@
-from affogato.lib.models import Command, Help, Program
-from affogato.lib.client import Client
-from affogato.lib.prompting import make_prompt
+import subprocess
+
+from .client import Client
+from .models import Command, Help, Program
+from .prompting import make_prompt
 
 
 class Interface:
@@ -13,7 +15,7 @@ class Interface:
             command_str += " " + arg
         prompt = make_prompt(command_str)
         response = self.client.query(prompt)
-        response = response.encode().decode('unicode_escape')
+        response = response.encode().decode("unicode_escape")
         return Help(response)
 
     def parse(self, args: list[str]) -> Command:
@@ -21,7 +23,13 @@ class Interface:
             raise RuntimeError("expected at least 1 command")
         program_name = args[0]
         arguments = args[1:] if len(args) > 1 else []
-        program = Program(program_name, "")
+        manual = None
+        try:
+            subprocess.check_output(["man", program_name])
+        except subprocess.CalledProcessError:
+            pass
+        program = Program(program_name, manual)
+
         return Command(program=program, args=arguments)
 
     def seek_help(self, args: list[str]) -> Help:
